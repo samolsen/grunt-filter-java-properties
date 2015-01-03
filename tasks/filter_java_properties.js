@@ -10,6 +10,9 @@
 
 module.exports = function (grunt) {
 
+  var path = require('path');
+  var PropertyFilter = require('filter-java-properties').PropertyFilter;
+
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
@@ -17,14 +20,25 @@ module.exports = function (grunt) {
 
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      punctuation: '.',
-      separator: ', '
+      propertiesPath: undefined,
+      delimiters: undefined
     });
+
+    if (!options.propertiesPath) {
+      return grunt.fail.warn("The propertiesPath option must be defined");
+    }
+
+    if (!grunt.file.exists(options.propertiesPath)) {
+      return grunt.fail.warn("The .properties file does not exist");
+    }
+
+    var propertiesString = grunt.file.read(options.propertiesPath);
+    var filter = PropertyFilter.withString({string: propertiesString, delimiters: options.delimiters});
 
     // Iterate over all specified file groups.
     this.files.forEach(function (file) {
       // Concat specified files.
-      var src = file.src.filter(function (filepath) {
+      file.src.filter(function (filepath) {
         // Warn on and remove invalid source files (if nonull was set).
         if (!grunt.file.exists(filepath)) {
           grunt.log.warn('Source file "' + filepath + '" not found.');
@@ -32,16 +46,13 @@ module.exports = function (grunt) {
         } else {
           return true;
         }
-      }).map(function (filepath) {
+      }).each(function (filepath) {
         // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+        var filtered = filter.filterString(grunt.file.read(filepath));
+        var outPath = path.resolve(file.dest, path.basename(filepath));
 
-      // Handle options.
-      src += options.punctuation;
-
-      // Write the destination file.
-      grunt.file.write(file.dest, src);
+        grunt.file.write(outPath, filtered);
+      });
 
       // Print a success message.
       grunt.log.writeln('File "' + file.dest + '" created.');
