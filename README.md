@@ -1,6 +1,7 @@
 # grunt-filter-java-properties
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
-> Grunt wrapper for the filter-java-properties Node pacakge
+> [Grunt](http://gruntjs.com/) wrapper for the [filter-java-properties](https://github.com/samolsen/node-filter-java-properties) Node package. Performs key-value string replacement, similar to the Maven Resources plugin.
 
 ## Getting Started
 This plugin requires Grunt.
@@ -37,56 +38,60 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+#### options.propertiesPath
+Type: `String`  
+*Required*
 
-A string value that is used to do something with whatever.
+Path to a **.properties** file. Path should be absolute, or relative to `process.cwd()`.
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+#### options.delimiters
+Type: `String`  
+Default: `["${*}", "@"]`
 
-A string value that is used to do something else with whatever else.
+Delimiters to use for string filtering. [More info](https://github.com/samolsen/node-filter-java-properties/blob/master/docs/javascript-api.md#filter-delimiters).
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  filter_java_properties: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+In this example, the files contained in the `src` directory are filtered using the default delimiters, and written to the `dest` directory.
 
 ```js
 grunt.initConfig({
   filter_java_properties: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      // The path to a file containing Java .properties style key-value pairs is required
+      propertiesPath: '/tmp/configure.properties'
     },
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+      'dest/': ['src/*']
     },
   },
 })
 ```
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+#### Custom Delimiters
+In this example, custom delimiters are used to filter the `src` files. See the Node package docs for [more info](https://github.com/samolsen/node-filter-java-properties/blob/master/docs/javascript-api.md#filter-delimiters).
 
-## Release History
-_(Nothing yet)_
+```js
+grunt.initConfig({
+  filter_java_properties: {
+    options: {
+      // The path to a file containing Java .properties style key-value pairs is required
+      propertiesPath: '/tmp/configure.properties',
+      delimiters: '(*)'
+    },
+    files: {
+      'dest/': ['src/*']
+    },
+  },
+})
+```
 
 ## License
 Copyright (c) 2015 Sam Olsen. Licensed under the MIT license.
+
+[npm-url]: https://npmjs.org/package/grunt-filter-java-properties
+[npm-image]: https://badge.fury.io/js/grunt-filter-java-properties.png
+
+[travis-url]: http://travis-ci.org/samolsen/grunt-filter-java-properties
+[travis-image]: https://secure.travis-ci.org/samolsen/grunt-filter-java-properties.png?branch=master
