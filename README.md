@@ -88,7 +88,8 @@ grunt.initConfig({
 ```
 
 ## License
-Copyright (c) 2015 Sam Olsen. Licensed under the MIT license.
+
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)
 
 [npm-url]: https://npmjs.org/package/grunt-filter-java-properties
 [npm-image]: https://badge.fury.io/js/grunt-filter-java-properties.png

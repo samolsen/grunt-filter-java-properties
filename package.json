@@ -2,20 +2,29 @@
   "name": "grunt-filter-java-properties",
   "version": "0.1.0",
   "description": "Grunt wrapper for the filter-java-properties Node pacakge",
-  "repository": "https://github.com/samolsen/grunt-filter-java-properties.git",
+  "repository": {
+    "type" : "git", 
+    "url" : "https://github.com/samolsen/grunt-filter-java-properties.git"
+  },
   "author": {
     "name": "Sam Olsen",
     "email": "sam@samolsen.com",
-    "url": "http://samolsen.com"
+    "url": "https://github.com/samolsen"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "filter",
+    "resources",
+    "properties"
   ],
   "main": "Gruntfile.js",
   "engines": {
     "node": "0.10.0"
   },
   "license": "MIT",
+  "dependencies": {
+    "filter-java-properties": "^0.2.0"
+  },
   "devDependencies": {
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-jshint": "~0.8.0",
@@ -27,7 +36,5 @@
   "scripts": {
     "test": "grunt test"
   },
-  "dependencies": {
-    "filter-java-properties": "^0.2.0"
-  }
+  "license": "MIT"
 }
