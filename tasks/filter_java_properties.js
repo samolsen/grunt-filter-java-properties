@@ -25,11 +25,11 @@ module.exports = function (grunt) {
     });
 
     if (!options.propertiesPath) {
-      return grunt.fail.warn("The propertiesPath option must be defined");
+      return grunt.fail.fatal("The path to a .properties file must be provided in the options as `propertiesPath`");
     }
 
     if (!grunt.file.exists(options.propertiesPath)) {
-      return grunt.fail.warn("The .properties file does not exist");
+      return grunt.fail.fatal("The .properties file at path '" + options.propertiesPath +  "'' does not exist");
     }
 
     var propertiesString = grunt.file.read(options.propertiesPath);
