@@ -37,7 +37,7 @@ module.exports = function (grunt) {
 
     // Iterate over all specified file groups.
     this.files.forEach(function (file) {
-      // Concat specified files.
+
       file.src.filter(function (filepath) {
         // Warn on and remove invalid source files (if nonull was set).
         if (!grunt.file.exists(filepath)) {
@@ -46,16 +46,18 @@ module.exports = function (grunt) {
         } else {
           return true;
         }
-      }).each(function (filepath) {
+      }).forEach(function (filepath) {
         // Read file source.
         var filtered = filter.filterString(grunt.file.read(filepath));
         var outPath = path.resolve(file.dest, path.basename(filepath));
 
         grunt.file.write(outPath, filtered);
+
+        // Print a success message.
+        grunt.log.writeln('Filtered file "' + outPath + '" created.');
       });
 
-      // Print a success message.
-      grunt.log.writeln('File "' + file.dest + '" created.');
+      
     });
   });
 
