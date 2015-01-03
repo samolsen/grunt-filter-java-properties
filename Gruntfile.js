@@ -33,17 +33,16 @@ module.exports = function (grunt) {
 
     // Configuration to be run (and then tested).
     filter_java_properties: {
+      options: {
+        propertiesPath: "test/fixtures/configure.properties"
+      },
       default_delimiters: {
-        options: {
-          propertiesPath: "test/fixtures/configure.properties"
-        },
         files: {
           'tmp/default_delimiters': ['test/fixtures/template.txt']
         }
       },
       custom_delimiters: {
         options: {
-          propertiesPath: "test/fixtures/configure.properties",
           delimiters: "(*)"
         },
         files: {
