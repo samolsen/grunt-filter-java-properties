@@ -1,6 +1,6 @@
 {
   "name": "grunt-filter-java-properties",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Grunt wrapper for the filter-java-properties Node pacakge",
   "repository": {
     "type" : "git", 
@@ -23,7 +23,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "filter-java-properties": "^0.2.0"
+    "filter-java-properties": "^0.3.0"
   },
   "devDependencies": {
     "grunt-contrib-clean": "~0.5.0",
